@@ -712,6 +712,7 @@ void tty_vhangup(struct tty_struct *tty)
 {
 #ifdef TTY_DEBUG_HANGUP
 	char	buf[64];
+	long	timeout = 0;
 
 	printk(KERN_DEBUG "%s vhangup...\n", tty_name(tty, buf));
 #endif
@@ -1594,7 +1595,6 @@ int tty_release(struct inode *inode, struct file *filp)
 	int	devpts;
 	int	idx;
 	char	buf[64];
-	long	timeout = 0;
 
 	if (tty_paranoia_check(tty, inode, "tty_release_dev"))
 		return 0;
@@ -1722,11 +1722,7 @@ int tty_release(struct inode *inode, struct file *filp)
 				    "active!\n", tty_name(tty, buf));
 		tty_unlock();
 		mutex_unlock(&tty_mutex);
-		schedule_timeout_killable(timeout);
-		if (timeout < 120 * HZ)
-			timeout = 2 * timeout + 1;
-		else
-			timeout = MAX_SCHEDULE_TIMEOUT;
+		schedule();
 	}
 
 	/*
