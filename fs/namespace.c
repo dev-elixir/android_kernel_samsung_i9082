@@ -1486,6 +1486,7 @@ void drop_collected_mounts(struct vfsmount *mnt)
 {
 	LIST_HEAD(umount_list);
 	down_write(&namespace_sem);
+
 	br_write_lock(vfsmount_lock);
 	umount_tree(mnt, 0, &umount_list);
 	br_write_unlock(vfsmount_lock);
@@ -1841,6 +1842,7 @@ static int do_remount(struct path *path, int flags, int mnt_flags,
 	else
 		err = do_remount_sb(sb, flags, data, 0);
 	if (!err) {
+
 		br_write_lock(vfsmount_lock);
 		mnt_flags |= path->mnt->mnt_flags & MNT_PROPAGATION_MASK;
 		path->mnt->mnt_flags = mnt_flags;
@@ -1848,6 +1850,7 @@ static int do_remount(struct path *path, int flags, int mnt_flags,
 	}
 	up_write(&sb->s_umount);
 	if (!err) {
+
 		br_write_lock(vfsmount_lock);
 		touch_mnt_namespace(path->mnt->mnt_ns);
 		br_write_unlock(vfsmount_lock);
@@ -2054,7 +2057,6 @@ int finish_automount(struct vfsmount *m, struct path *path)
 fail:
 	/* remove m from any expiration list it may be on */
 	if (!list_empty(&m->mnt_expire)) {
-		down_write(&namespace_sem);
 		br_write_lock(vfsmount_lock);
 		list_del_init(&m->mnt_expire);
 		br_write_unlock(vfsmount_lock);
@@ -2409,9 +2411,6 @@ static struct mnt_namespace *dup_mnt_ns(struct mnt_namespace *mnt_ns,
 		kfree(new_ns);
 		return ERR_PTR(-ENOMEM);
 	}
-/* make certain new is below the root */
-      if (!is_path_reachable(new_mnt, new.dentry, &root))
-         goto out4;
 	br_write_lock(vfsmount_lock);
 	list_add_tail(&new_ns->list, &new_ns->root->mnt_list);
 	br_write_unlock(vfsmount_lock);

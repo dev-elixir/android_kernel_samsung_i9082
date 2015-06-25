@@ -2,7 +2,7 @@
 #include <linux/broadcom/vc_debug_sym.h>
 
 VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_hostname, "nextgen4k" );
-VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_version, "a57f3d25ff5e5a2ca61cf3d0e4e7740097617d3b (tainted)" );
+VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_version, "6eda793bfbe188e1f93355e0e5eb5b487f30b6d8 (tainted)" );
 VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_time,    __TIME__ );
 VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_date,    __DATE__ );
 
