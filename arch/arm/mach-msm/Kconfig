@@ -35,6 +35,7 @@ config ARCH_QSD8X50
 	select MSM_GPIOMUX
 	select MSM_PROC_COMM
 	select HAS_MSM_DEBUG_UART_PHYS
+        select HAS_MACH_MEMUTILS
 
 config ARCH_MSM8X60
 	bool "MSM8X60"
@@ -169,6 +170,12 @@ config MSM_DEBUG_UART
 	default 1 if MSM_DEBUG_UART1
 	default 2 if MSM_DEBUG_UART2
 	default 3 if MSM_DEBUG_UART3
+
+config HAS_MACH_MEMUTILS
+ default y
+ bool "Motorola MSM memcpy enhancements"
+ help
+ Faster memcpy performance for Krait
 
 if HAS_MSM_DEBUG_UART_PHYS
 choice
