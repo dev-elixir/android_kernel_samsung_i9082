@@ -2409,6 +2409,9 @@ static struct mnt_namespace *dup_mnt_ns(struct mnt_namespace *mnt_ns,
 		kfree(new_ns);
 		return ERR_PTR(-ENOMEM);
 	}
+/* make certain new is below the root */
+      if (!is_path_reachable(new_mnt, new.dentry, &root))
+         goto out4;
 	br_write_lock(vfsmount_lock);
 	list_add_tail(&new_ns->list, &new_ns->root->mnt_list);
 	br_write_unlock(vfsmount_lock);
