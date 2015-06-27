@@ -226,20 +226,20 @@ static void __ref decide_hotplug_func(struct work_struct *work)
 		goto reschedule;
 	}
 
-	for (cpu = 0; cpu < 2; cpu++)
-		cur_load += cpufreq_quick_get_util(cpu);
+	for (cpu = 0; cpu < 1; cpu++)
+		
 
 	if (cur_load >= (t->load_threshold << 1)) {
 		if (stats.counter < t->max_load_counter)
 			++stats.counter;
 
-		if (online_cpus <= 2)
+		if (online_cpus <= 1)
 			cpu_revive(cur_load);
 	} else {
 		if (stats.counter)
 			--stats.counter;
 
-		if (online_cpus > 2)
+		if (online_cpus > 1)
 			cpu_smash();
 	}
 
