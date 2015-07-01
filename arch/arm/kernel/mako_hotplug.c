@@ -41,7 +41,7 @@
 #define MIN_CPU_UP_US (1000 * USEC_PER_MSEC)
 #define NUM_POSSIBLE_CPUS num_possible_cpus()
 #define HIGH_LOAD (90 << 1)
-#define MAX_FREQ_CAP 1036800
+#define MAX_FREQ_CAP 800000
 
 struct cpu_stats {
 	unsigned int counter;
@@ -110,7 +110,7 @@ static inline void cpus_online_work(void)
 {
 	unsigned int cpu;
 
-	for (cpu = 2; cpu < 4; cpu++) {
+	for (cpu = 0; cpu++) {
 		if (cpu_is_offline(cpu))
 			cpu_up(cpu);
 	}
@@ -120,7 +120,7 @@ static inline void cpus_offline_work(void)
 {
 	unsigned int cpu;
 
-	for (cpu = 3; cpu > 1; cpu--) {
+	for (cpu = 1; cpu--) {
 		if (cpu_online(cpu))
 			cpu_down(cpu);
 	}
@@ -138,7 +138,7 @@ static inline bool cpus_cpufreq_work(void)
 			return false;
 	}
 
-	for (cpu = 2; cpu < 4; cpu++)
+	for (cpu = 0; cpu < 1; cpu++)
 		current_freq += cpufreq_quick_get(cpu);
 
 	return (current_freq >> 1) >= t->cpufreq_unplug_limit;
@@ -213,9 +213,9 @@ static void __ref decide_hotplug_func(struct work_struct *work)
 		goto reschedule;
 
 	/*
-	 * reschedule early when the user doesn't want more than 2 cores online
+	 * reschedule early when the user doesn't want more than 1 core online
 	 */
-	if (unlikely(t->load_threshold == 100 && online_cpus == 2))
+	if (unlikely(t->load_threshold == 100 && online_cpus == 1))
 		goto reschedule;
 
 	/*
@@ -305,7 +305,7 @@ static void mako_hotplug_suspend(struct work_struct *work)
 		stats.saved_freq = policy->max;
 
 	for_each_online_cpu(cpu) {
-		if (cpu < 2) {
+		if (cpu < 1) {
 			screen_off_max_freq(cpu, true);
 			continue;
 		}
