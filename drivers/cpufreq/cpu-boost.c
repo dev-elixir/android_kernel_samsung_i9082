@@ -377,9 +377,9 @@ static int cpu_boost_init(void)
 		set_cpus_allowed(s->thread, *cpumask_of(cpu));
 	}
 	cpufreq_register_notifier(&boost_adjust_nb, CPUFREQ_POLICY_NOTIFIER);
-					
 	ret = input_register_handler(&cpuboost_input_handler);
 
 	return 0;
 }
 late_initcall(cpu_boost_init);
+
