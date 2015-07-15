@@ -50,7 +50,7 @@ EXTRA_CFLAGS  += -I"drivers/misc/vc04_services/interface/vchiq_arm"
 EXTRA_CFLAGS  += -I"drivers/misc/vc04_services/interface/debug_sym"
 EXTRA_CFLAGS  += -I"include/linux/broadcom"
 
-EXTRA_CFLAGS  += -Werror
+EXTRA_CFLAGS  += -std=gnu89
 
 VCHIQ_HOST_BUS_ALIGNMENT = 3
 
