@@ -1,8 +1,8 @@
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 101
+SUBLEVEL = 31
 EXTRAVERSION =
-NAME = Sodden Ben Lomond
+NAME = Sneaky Weasel
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -1062,7 +1062,7 @@ headers_install: __headers
 	$(error Headers not exportable for the $(SRCARCH) architecture))
 	$(Q)$(MAKE) $(hdr-inst)=include
 	$(Q)$(MAKE) $(hdr-inst)=arch/$(hdr-arch)/include/asm $(hdr-dst)
-#	$(Q)$(MAKE) $(hdr-inst)=drivers/videocore/host_support/include
+	$(Q)$(MAKE) $(hdr-inst)=drivers/videocore/host_support/include
 
 PHONY += headers_check_all
 headers_check_all: headers_install_all
