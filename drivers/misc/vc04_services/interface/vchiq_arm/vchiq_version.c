@@ -1,8 +1,8 @@
 #include "vchiq_build_info.h"
 #include <linux/broadcom/vc_debug_sym.h>
 
-VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_hostname, "nextgen4k" );
-VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_version, "f6a6c9e638e307dd9777e24072d26d023400649b (tainted)" );
+VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_hostname, "abhi-phoenix" );
+VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_version, "a87f5777bc7e40dbd4ec2e439a166b44eb4d3547 (tainted)" );
 VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_time,    __TIME__ );
 VC_DEBUG_DECLARE_STRING_VAR( vchiq_build_date,    __DATE__ );
 
